@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="30dp"
+    android:gravity="center"
+    tools:context=".PackageSelectActivity">
+
+    <TextView
+        style="@style/textBasic"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="데이트 계획 창입니다."
+        android:textSize="24sp"/>
+
+    <Button
+        style="@style/btnBasic"
+        android:id="@+id/package1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="패키지1"
+        android:layout_margin="10dp"
+        android:onClick="mOnClick"/>
+    <Button
+        style="@style/btnBasic"
+        android:id="@+id/package2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="패키지2"
+        android:layout_margin="10dp"
+        android:onClick="mOnClick" />
+
+    <Button
+        style="@style/btnBasic"
+        android:id="@+id/package3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="패키지3"
+        android:layout_margin="10dp"
+        android:onClick="mOnClick"/>
+
+    <Button
+        style="@style/btnBasic"
+        android:id="@+id/package4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="패키지4"
+        android:layout_margin="10dp"
+        android:onClick="mOnClick"/>
+
+</LinearLayout>
