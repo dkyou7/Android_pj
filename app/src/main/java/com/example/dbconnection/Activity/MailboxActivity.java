@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dbconnection.MailboxAdapter;
@@ -29,16 +30,18 @@ import java.util.ArrayList;
 
 public class MailboxActivity extends AppCompatActivity {
 
-    private String IP = "61.255.8.214:27922";
+    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
     ListView messages;
     MailboxAdapter mailboxAdapter;
+    TextView textView;
     Intent intent;
-    private String cur_ID, cur_SEX;
+    private String cur_ID, cur_SEX, cur_MODE;
     String myJSON;
 
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "ASK_ID";
     private static final String TAG_MSG = "MESSAGE";
+    private static final String TAG_ANS = "ANSWER";
     JSONArray peoples = null;
 
     final ArrayList<MailboxMessage> adapter = new ArrayList<>();
@@ -51,31 +54,46 @@ public class MailboxActivity extends AppCompatActivity {
         intent = getIntent();
         cur_ID = intent.getStringExtra("myId");
         cur_SEX = intent.getStringExtra("SEX");
+        cur_MODE = intent.getStringExtra("MODE");
 
         messages = (ListView)findViewById(R.id.messages);
-        getData("http://" + IP + "/mp/lovecall.php?ID=" + cur_ID);
+        textView = (TextView)findViewById(R.id.Title);
 
-        messages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MailboxActivity.this);
-                builder.setTitle("메세지");
-                builder.setMessage("당신을 맘에 들어합니다.");
-                builder.setPositiveButton("수락",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+        if(cur_MODE.equals("mail"))
+        {
+            textView.setText("MESSAGE");
+            getData("http://" + IP + "/mp/lovecall.php?ID=" + cur_ID);
 
-                            }
-                        });
-                builder.setNegativeButton("별로에요",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
-                            }
-                        });
-                builder.show();
-            }
-        });
+            messages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MailboxActivity.this);
+                    builder.setTitle("메세지");
+                    builder.setMessage("당신을 맘에 들어합니다.");
+                    builder.setPositiveButton("수락",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    builder.setNegativeButton("별로에요",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(getApplicationContext(), "아니오를 선택했습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    builder.show();
+                }
+            });
+        }
+        else if(cur_MODE.equals("record"))
+        {
+            textView.setText("RECORD");
+            getData("http://" + IP + "/mp/schedule.php?ID=" + cur_ID);
+        }
+        else {
+
+        }
     }
 
     protected void showList()
@@ -88,14 +106,23 @@ public class MailboxActivity extends AppCompatActivity {
             {
                 JSONObject c = peoples.getJSONObject(i);
                 String dbid = c.getString(TAG_ID);
-                String dbmsg = c.getString(TAG_MSG);
+                MailboxMessage mm;
 
-                MailboxMessage mm = new MailboxMessage(dbid);
+                String dbmsg, dbans;
+                if(cur_MODE.equals("mail"))
+                {
+                    dbmsg = c.getString(TAG_MSG);
+                    mm = new MailboxMessage(dbid, dbmsg);
+                }
+                else {
+                    dbans = c.getString(TAG_ANS);
+                    mm = new MailboxMessage(dbid, dbans);
+                }
+
                 adapter.add(mm);
-                mailboxAdapter = new MailboxAdapter(getApplication(),adapter);
-                messages.setAdapter(mailboxAdapter);
             }
-
+            mailboxAdapter = new MailboxAdapter(getApplication(),adapter);
+            messages.setAdapter(mailboxAdapter);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -9,12 +9,35 @@
     android:layout_height="match_parent"
     tools:context=".Activity.RandomMatchActivity">
 
-    <Button
-        style="@style/btnBasic"
-        android:id="@+id/btnMailbox"
-        android:text="쪽지함"
+    <LinearLayout
+        android:weightSum="3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            style="@style/btnBasic"
+            android:id="@+id/btnMailbox"
+            android:text="쪽지함"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <Button
+            style="@style/btnBasic"
+            android:id="@+id/btnRecord"
+            android:text="전적"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <Button
+            style="@style/btnBasic"
+            android:id="@+id/btnDate"
+            android:text="일정"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <Button
         style="@style/btnBasic"
         android:id="@+id/btnMyInfo"

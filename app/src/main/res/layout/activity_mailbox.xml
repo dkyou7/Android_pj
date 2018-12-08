@@ -13,7 +13,8 @@
         style="@style/textBasic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="messages"
+        android:text=""
+        android:id="@+id/Title"
         android:textSize="30dp"
         android:textAlignment="center"/>
 

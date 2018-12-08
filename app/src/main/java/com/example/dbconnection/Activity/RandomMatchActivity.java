@@ -36,10 +36,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class RandomMatchActivity extends AppCompatActivity {
-    private String IP = "61.255.8.214:27922";
+    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
     private ImageView userPortrait;
     private TextView userName;
-    private Button selectButton, passButton,btnMailbox,btnMyInfo;
+    private Button selectButton, passButton,btnMailbox, btnRecord, btnDate, btnMyInfo;
     private String cur_ID, cur_SEX;
     private ArrayList<String> partner_ID;
 
@@ -70,6 +70,8 @@ public class RandomMatchActivity extends AppCompatActivity {
         selectButton = (Button)findViewById(R.id.pick_button);
         passButton = (Button)findViewById(R.id.pass_button);
         btnMailbox = (Button)findViewById(R.id.btnMailbox);
+        btnRecord = (Button)findViewById(R.id.btnRecord);
+        btnDate = (Button)findViewById(R.id.btnDate);
         btnMyInfo = (Button)findViewById(R.id.btnMyInfo);
 
         getData("http://" + IP + "/mp/Search.php?SEX=" + cur_SEX);
@@ -80,9 +82,33 @@ public class RandomMatchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
                 intent.putExtra("myId", cur_ID);
                 intent.putExtra("SEX", cur_SEX);
+                intent.putExtra("MODE", "mail");
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
             }
         });
+
+        btnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
+                intent.putExtra("myId", cur_ID);
+                intent.putExtra("SEX", cur_SEX);
+                intent.putExtra("MODE", "record");
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+            }
+        });
+
+        btnDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
+                intent.putExtra("myId", cur_ID);
+                intent.putExtra("SEX", cur_SEX);
+                intent.putExtra("MODE", "date");
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+            }
+        });
+
         btnMyInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class FinalMessageActivity extends AppCompatActivity {
 
-    private String IP = "172.30.1.18"; //"61.255.4.91:27922";
+    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
     String myJSON;
     JSONArray peoples = null;
 

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class MailboxAdapter extends BaseAdapter {
 
-    private String IP = "61.255.8.214:27922";
+    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
     private Context ctx;
     private ArrayList<MailboxMessage> data;
     private Bitmap bmImg;
@@ -57,7 +57,7 @@ public class MailboxAdapter extends BaseAdapter {
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imageId);
 
         TextView name = (TextView)convertView.findViewById(R.id.sender_name);
-        name.setText(data.get(position).getName() + " 님이 당신을 마음에 들어합니다.");
+        name.setText(data.get(position).getName() + " 님 " + data.get(position).getADD());
 
         String ID = data.get(position).getName();
         back task = new back();

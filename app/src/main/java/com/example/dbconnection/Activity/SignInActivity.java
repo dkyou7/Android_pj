@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
-    private String IP = "61.255.8.214:27922";
+    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
     private Button back;
     private Button signIn;
     private Button regis_pic;
