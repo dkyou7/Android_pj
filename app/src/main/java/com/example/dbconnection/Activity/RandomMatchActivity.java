@@ -36,7 +36,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class RandomMatchActivity extends AppCompatActivity {
-    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
+    private String IP = "61.255.8.214:27922";
+
     private ImageView userPortrait;
     private TextView userName;
     private Button selectButton, passButton,btnMailbox, btnRecord, btnDate, btnMyInfo;
@@ -104,7 +105,7 @@ public class RandomMatchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
                 intent.putExtra("myId", cur_ID);
                 intent.putExtra("SEX", cur_SEX);
-                intent.putExtra("MODE", "date");
+                intent.putExtra("MODE", "schedule");
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
             }
         });

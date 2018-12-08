@@ -22,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends Activity {
-        private String IP = "192.168.0.9"; //"61.255.8.214:27922";
+        private String IP = "61.255.8.214:27922";
         String myJSON;
 
 

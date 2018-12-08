@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class FinalMessageActivity extends AppCompatActivity {
 
-    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
+    private String IP = "61.255.8.214:27922";
     String myJSON;
     JSONArray peoples = null;
 
@@ -31,7 +31,8 @@ public class FinalMessageActivity extends AppCompatActivity {
     private Button back;
     private Button update;
     private TextView final_msg;
-    private String myId, partnerId;
+    private String myId, partnerId, date, time;
+    String message = "";
 
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "ID";
@@ -45,7 +46,6 @@ public class FinalMessageActivity extends AppCompatActivity {
         update = (Button)findViewById(R.id.btnUpdate);
         final_msg = (TextView) findViewById(R.id.textFinal);
 
-        String message = "";
         final String cur_SEX;
         Intent intent = getIntent();
 
@@ -53,9 +53,11 @@ public class FinalMessageActivity extends AppCompatActivity {
         myId = intent.getStringExtra("myId");
         partnerId = intent.getStringExtra("partnerId");
         cur_SEX = intent.getStringExtra("SEX");
+        date = intent.getStringExtra("date");
+        time = intent.getStringExtra("time");
 
-        message += "날짜 : " + intent.getStringExtra("date") + "\n";
-        message += "시간 : " + intent.getStringExtra("time") + "\n";
+        message += "날짜 : " + date + "\n";
+        message += "시간 : " + time + "\n";
         message += "장소 : " + intent.getStringExtra(intent.getStringExtra("first")) + "\n\n";
 
         if (temp > 0){
@@ -75,7 +77,7 @@ public class FinalMessageActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData("http://" + IP + "/mp/Match.php?ASK_ID=" + myId + "&ACK_ID=" + partnerId + "&MESSAGE=" + final_msg.getText().toString()); //수정 필요
+                getData("http://" + IP + "/mp/Match.php?ASK_ID=" + myId + "&ACK_ID=" + partnerId + "&MESSAGE=" + message + "&DT=" + date + " " + time); //수정 필요
                 Toast.makeText(getApplicationContext(),"제출 완료되었습니다.",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(),RandomMatchActivity.class);
                 intent.setAction("FINAL");

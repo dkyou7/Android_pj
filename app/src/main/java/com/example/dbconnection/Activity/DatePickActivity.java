@@ -39,7 +39,7 @@ public class DatePickActivity extends AppCompatActivity {
                 intent.putExtra("month", month+1);
                 intent.putExtra("day", day);
                 intent.putExtra("id",tmp);
-                intent.putExtra("date", String.valueOf(year) + "." + String.valueOf(month + 1) + "." + String.valueOf(day));
+                intent.putExtra("date", String.valueOf(year) + "-" + String.valueOf(month + 1) + "-" + String.valueOf(day));
                 intent.putExtra("myId",myId);
                 intent.putExtra("partnerId",partnerId);
                 intent.putExtra("SEX", cur_SEX);

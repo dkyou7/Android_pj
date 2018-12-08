@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MailboxAdapter extends BaseAdapter {
+    private String IP = "61.255.8.214:27922";
 
-    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
     private Context ctx;
     private ArrayList<MailboxMessage> data;
     private Bitmap bmImg;
@@ -39,7 +39,7 @@ public class MailboxAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return data.get(position);
     }
 
     @Override
@@ -57,13 +57,13 @@ public class MailboxAdapter extends BaseAdapter {
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imageId);
 
         TextView name = (TextView)convertView.findViewById(R.id.sender_name);
-        name.setText(data.get(position).getName() + " 님 " + data.get(position).getADD());
+        name.setText(data.get(position).getName() + " " + data.get(position).getADD() + "\n" + data.get(position).getADD2() + "\n" + data.get(position).getADD3());
 
         String ID = data.get(position).getName();
         back task = new back();
         task.execute("http://" + IP + "/mp/image/" + ID + ".jpg");
         try {
-            Thread.sleep(150);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,11 +27,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MailboxActivity extends AppCompatActivity {
 
-    private String IP = "192.168.0.9"; //"61.255.8.214:27922";
+    private String IP = "61.255.8.214:27922";
     ListView messages;
     MailboxAdapter mailboxAdapter;
     TextView textView;
@@ -40,11 +43,15 @@ public class MailboxActivity extends AppCompatActivity {
 
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "ASK_ID";
+    private static final String TAG_ACK = "ACK_ID";
     private static final String TAG_MSG = "MESSAGE";
     private static final String TAG_ANS = "ANSWER";
     JSONArray peoples = null;
 
     final ArrayList<MailboxMessage> adapter = new ArrayList<>();
+    private MailboxMessage selected;
+    boolean answer_query;
+    String date, answer_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +66,17 @@ public class MailboxActivity extends AppCompatActivity {
         messages = (ListView)findViewById(R.id.messages);
         textView = (TextView)findViewById(R.id.Title);
 
+        long NOW = System.currentTimeMillis();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date mDate = new Date(NOW);
+        date = mFormat.format(mDate);
+
+        answer_query = false;
+
         if(cur_MODE.equals("mail"))
         {
             textView.setText("MESSAGE");
-            getData("http://" + IP + "/mp/lovecall.php?ID=" + cur_ID);
+            getData("http://" + IP + "/mp/lovecall.php?ID=" + cur_ID + "&NOW=" + date);
 
             messages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -70,16 +84,37 @@ public class MailboxActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MailboxActivity.this);
                     builder.setTitle("메세지");
                     builder.setMessage("당신을 맘에 들어합니다.");
+                    selected = (MailboxMessage)(adapterView.getAdapter().getItem(i));
                     builder.setPositiveButton("수락",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    String ask_id = selected.getName();
+                                    String ack_id = cur_ID;
+                                    String msg = selected.getADD2();
+                                    String answer = "ok";
 
+                                    answer_query = true;
+                                    getData("http://" + IP + "/mp/answer.php?ASK_ID=" + ask_id + "&ACK_ID=" + ack_id + "&MESSAGE=" + msg + "&ANSWER=" + answer + "&DT=" + date);
+                                    if(!answer_query)
+                                    {
+                                        Toast.makeText(getApplicationContext(), answer_result, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                     builder.setNegativeButton("별로에요",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getApplicationContext(), "아니오를 선택했습니다.", Toast.LENGTH_LONG).show();
+                                    String ask_id = selected.getName();
+                                    String ack_id = cur_ID;
+                                    String msg = selected.getADD2();
+                                    String answer = "sorry";
+
+                                    answer_query = true;
+                                    getData("http://" + IP + "/mp/answer.php?ASK_ID=" + ask_id + "&ACK_ID=" + ack_id + "&MESSAGE=" + msg + "&ANSWER=" + answer + "&DT=" + date);
+                                    if(!answer_query)
+                                    {
+                                        Toast.makeText(getApplication(), answer_result, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                     builder.show();
@@ -89,10 +124,12 @@ public class MailboxActivity extends AppCompatActivity {
         else if(cur_MODE.equals("record"))
         {
             textView.setText("RECORD");
-            getData("http://" + IP + "/mp/schedule.php?ID=" + cur_ID);
+            getData("http://" + IP + "/mp/record.php?ID=" + cur_ID + "&NOW=" + date);
         }
-        else {
-
+        else
+        {
+            textView.setText("SCHEDULE");
+            getData("http://" + IP + "/mp/schedule.php?ID=" + cur_ID + "&NOW=" + date);
         }
     }
 
@@ -106,19 +143,32 @@ public class MailboxActivity extends AppCompatActivity {
             {
                 JSONObject c = peoples.getJSONObject(i);
                 String dbid = c.getString(TAG_ID);
+                if(answer_query)
+                {
+                    answer_result = dbid;
+                    answer_query = false;
+                    break;
+                }
                 MailboxMessage mm;
 
-                String dbmsg, dbans;
+                String dback, dbmsg, dbans;
                 if(cur_MODE.equals("mail"))
                 {
                     dbmsg = c.getString(TAG_MSG);
                     mm = new MailboxMessage(dbid, dbmsg);
                 }
-                else {
+                else if(cur_MODE.equals("record"))
+                {
+                    dback = c.getString(TAG_ACK);
                     dbans = c.getString(TAG_ANS);
-                    mm = new MailboxMessage(dbid, dbans);
+                    mm = new MailboxMessage(dbid, dback, dbans);
                 }
-
+                else {
+                    dback = c.getString(TAG_ACK);
+                    dbmsg = c.getString(TAG_MSG);
+                    dbans = c.getString(TAG_ANS);
+                    mm = new MailboxMessage(dbid, dback, dbmsg, dbans);
+                }
                 adapter.add(mm);
             }
             mailboxAdapter = new MailboxAdapter(getApplication(),adapter);
