@@ -1,4 +1,4 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
 
 
@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.dbconnection.MailboxAdapter;
+import com.example.dbconnection.MailboxMessage;
+import com.example.dbconnection.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

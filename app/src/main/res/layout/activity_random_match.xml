@@ -2,17 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RandomMatchActivity">
+    tools:context=".Activity.RandomMatchActivity">
 
     <Button
         style="@style/btnBasic"
         android:id="@+id/btnMailbox"
         android:text="쪽지함"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        style="@style/btnBasic"
+        android:id="@+id/btnMyInfo"
+        android:text="내정보"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -1,4 +1,4 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CalendarView;
 import android.widget.Toast;
+
+import com.example.dbconnection.Activity.PackageDetailsActivity;
+import com.example.dbconnection.R;
 
 public class DatePickActivity extends AppCompatActivity {
 

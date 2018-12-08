@@ -8,7 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import android.widget.Toast;
+
+import com.example.dbconnection.Activity.MainActivity;
 
 public class MyService extends Service {
     NotificationManager Notifi_M;

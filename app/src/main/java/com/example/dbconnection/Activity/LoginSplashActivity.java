@@ -1,13 +1,10 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.widget.TextView;
 
-import com.example.dbconnection.MainActivity;
 import com.example.dbconnection.R;
 
 public class LoginSplashActivity extends AppCompatActivity {

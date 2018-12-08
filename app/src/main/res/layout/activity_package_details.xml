@@ -2,11 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#9145afc7"
+    android:background="@drawable/gradient_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".PackageDetailsActivity">
+    tools:context=".Activity.PackageDetailsActivity">
+
+    <TextView
+        style="@style/textBasic"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="데이트 장소 선택"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"

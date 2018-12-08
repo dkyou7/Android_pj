@@ -1,4 +1,4 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.dbconnection.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,9 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class PackageDetailsActivity extends AppCompatActivity {
     private String IP = "61.255.8.214:27922";
@@ -84,16 +84,16 @@ public class PackageDetailsActivity extends AppCompatActivity {
 
         switch (tmp){
             case 1:
-                mealButton.setVisibility(View.GONE);
-                movieButton.setVisibility(View.GONE);
-                pubButton.setVisibility(View.GONE);
+                mealButton.setVisibility(View.INVISIBLE);
+                movieButton.setVisibility(View.INVISIBLE);
+                pubButton.setVisibility(View.INVISIBLE);
                 break;
             case 2:
-                movieButton.setVisibility(View.GONE);
-                pubButton.setVisibility(View.GONE);
+                movieButton.setVisibility(View.INVISIBLE);
+                pubButton.setVisibility(View.INVISIBLE);
                 break;
             case 3:
-                pubButton.setVisibility(View.GONE);
+                pubButton.setVisibility(View.INVISIBLE);
                 break;
             case 4:
                 break;

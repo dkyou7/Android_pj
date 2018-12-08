@@ -1,4 +1,4 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.example.dbconnection.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

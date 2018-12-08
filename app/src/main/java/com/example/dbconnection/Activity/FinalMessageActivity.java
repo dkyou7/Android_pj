@@ -1,4 +1,4 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dbconnection.Activity.RandomMatchActivity;
+import com.example.dbconnection.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,8 +20,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FinalMessageActivity extends AppCompatActivity {
 
@@ -53,7 +54,6 @@ public class FinalMessageActivity extends AppCompatActivity {
         partnerId = intent.getStringExtra("partnerId");
         cur_SEX = intent.getStringExtra("SEX");
 
-        message += "\n우리 이때 봬요!!\n\n";
         message += "날짜 : " + intent.getStringExtra("date") + "\n";
         message += "시간 : " + intent.getStringExtra("time") + "\n";
         message += "장소 : " + intent.getStringExtra(intent.getStringExtra("first")) + "\n\n";

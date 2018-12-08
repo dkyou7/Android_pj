@@ -6,12 +6,23 @@
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FinalMessageActivity">
+    tools:context=".Activity.FinalMessageActivity">
 
 
     <TextView
         style="@style/textBasic"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="데이트 신청서"
+        android:textSize="24sp"/>
+    <TextView
+        style="@style/textBasic"
+        android:layout_margin="20dp"
         android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="24sp"
         android:id="@+id/textFinal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

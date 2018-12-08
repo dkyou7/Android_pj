@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".DatePickActivity">
+    tools:context=".Activity.DatePickActivity">
 
     <TextView
         style="@style/textBasic"

@@ -13,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".DatePickActivity" />
-        <activity android:name=".FinalMessageActivity" />
-        <activity android:name=".LoginSplashActivity">
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.DatePickActivity" />
+        <activity android:name=".Activity.FinalMessageActivity" />
+        <activity android:name=".Activity.LoginSplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,18 +24,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MailboxActivity"
+            android:name=".Activity.MailboxActivity"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name=".PackageDetailsActivity" />
-        <activity android:name=".PackageSelectActivity" />
-        <activity android:name=".RandomImageActivity" />
-        <activity android:name=".RandomMatchActivity" />
-        <activity android:name=".SignInActivity" />
+        <activity android:name=".Activity.PackageDetailsActivity" />
+        <activity android:name=".Activity.PackageSelectActivity" />
+        <activity android:name=".Activity.RandomImageActivity" />
+        <activity android:name=".Activity.RandomMatchActivity" />
+        <activity android:name=".Activity.SignInActivity" />
 
         <service
             android:name=".MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".MyInformation"></activity>
     </application>
 
 </manifest>

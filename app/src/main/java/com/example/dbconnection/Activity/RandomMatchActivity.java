@@ -1,6 +1,5 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dbconnection.Activity.MailboxActivity;
+import com.example.dbconnection.Activity.PackageSelectActivity;
+import com.example.dbconnection.MyInformation;
+import com.example.dbconnection.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,13 +34,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RandomMatchActivity extends AppCompatActivity {
     private String IP = "61.255.8.214:27922";
     private ImageView userPortrait;
     private TextView userName;
-    private Button selectButton, passButton,btnMailbox;
+    private Button selectButton, passButton,btnMailbox,btnMyInfo;
     private String cur_ID, cur_SEX;
     private ArrayList<String> partner_ID;
 
@@ -58,7 +61,7 @@ public class RandomMatchActivity extends AppCompatActivity {
         partner_num = 0;
         partner_ID = new ArrayList<String>();
 
-        Intent get = getIntent();
+        final Intent get = getIntent();
         cur_ID = get.getStringExtra("ID");
         cur_SEX = get.getStringExtra("SEX");
 
@@ -67,6 +70,7 @@ public class RandomMatchActivity extends AppCompatActivity {
         selectButton = (Button)findViewById(R.id.pick_button);
         passButton = (Button)findViewById(R.id.pass_button);
         btnMailbox = (Button)findViewById(R.id.btnMailbox);
+        btnMyInfo = (Button)findViewById(R.id.btnMyInfo);
 
         getData("http://" + IP + "/mp/Search.php?SEX=" + cur_SEX);
 
@@ -76,6 +80,13 @@ public class RandomMatchActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
                 intent.putExtra("myId", cur_ID);
                 intent.putExtra("SEX", cur_SEX);
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+            }
+        });
+        btnMyInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MyInformation.class);
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
             }
         });

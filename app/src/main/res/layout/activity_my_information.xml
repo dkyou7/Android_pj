@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyInformation">
+
+    <TextView
+        android:layout_marginTop="10dp"
+        style="@style/textBasic"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:text="내 정보"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/textBasic"
+        android:text="내 정보가 아직 존재하지 않습니다. 정보를 수정해주세요."/>
+    <Button
+        android:id="@+id/btnUpdateInfo"
+        style="@style/btnBasic"
+        android:text="내 정보 수정하기"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
