@@ -58,7 +58,7 @@ public class FinalMessageActivity extends AppCompatActivity {
 
         message += "날짜 : " + date + "\n";
         message += "시간 : " + time + "\n";
-        message += "장소 : " + intent.getStringExtra(intent.getStringExtra("first")) + "\n\n";
+        message += "첫만남은 : " + intent.getStringExtra(intent.getStringExtra("first")) + "\n\n세부 명세\n";
 
         if (temp > 0){
             message += "카페 : " + intent.getStringExtra("cafe") +"\n";

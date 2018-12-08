@@ -19,7 +19,8 @@
         android:textSize="24sp"/>
 
     <Button
-        style="@style/btnBasic"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/btnInner"
         android:id="@+id/package1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +28,8 @@
         android:layout_margin="10dp"
         android:onClick="mOnClick"/>
     <Button
-        style="@style/btnBasic"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/btnInner"
         android:id="@+id/package2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +38,8 @@
         android:onClick="mOnClick" />
 
     <Button
-        style="@style/btnBasic"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/btnInner"
         android:id="@+id/package3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +48,8 @@
         android:onClick="mOnClick"/>
 
     <Button
-        style="@style/btnBasic"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/btnInner"
         android:id="@+id/package4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

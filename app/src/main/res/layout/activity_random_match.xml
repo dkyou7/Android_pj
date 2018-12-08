@@ -15,21 +15,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            style="@style/btnBasic"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/btnInner"
+            android:layout_margin="4dp"
             android:id="@+id/btnMailbox"
             android:text="쪽지함"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <Button
-            style="@style/btnBasic"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/btnInner"
+            android:layout_margin="4dp"
             android:id="@+id/btnRecord"
             android:text="전적"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <Button
-            style="@style/btnBasic"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/btnInner"
+            android:layout_margin="4dp"
             android:id="@+id/btnDate"
             android:text="일정"
             android:layout_width="0dp"
@@ -39,9 +45,12 @@
     </LinearLayout>
 
     <Button
-        style="@style/btnBasic"
+        android:background="@drawable/button_custom"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/btnInner"
         android:id="@+id/btnMyInfo"
         android:text="내정보"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -76,16 +85,22 @@
             android:gravity="center_horizontal">
 
             <Button
-                style="@style/btnBasic"
-                android:layout_width="wrap_content"
+                android:background="@drawable/button_custom"
+                android:textColor="@color/btnInner"
+                android:layout_margin="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/pick_button"
                 android:text="pick"
                 android:onClick="mOnClick"/>
 
             <Button
-                style="@style/btnBasic"
-                android:layout_width="wrap_content"
+                android:background="@drawable/button_custom"
+                android:textColor="@color/btnInner"
+                android:layout_width="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/pass_button"
                 android:text="pass"

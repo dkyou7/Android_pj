@@ -31,14 +31,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            style="@style/btnBasic"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/btnInner"
+            android:layout_margin="4dp"
             android:id="@+id/btnUpdate"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="수정하기"/>
         <Button
-            style="@style/btnBasic"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/btnInner"
+            android:layout_margin="4dp"
             android:id="@+id/btnBack"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -47,7 +51,9 @@
 
     </LinearLayout>
     <Button
-        style="@style/btnBasic"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/btnInner"
+        android:layout_margin="10dp"
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

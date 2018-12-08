@@ -55,21 +55,25 @@
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <Button
             style="@style/btnBasic"
             android:background="@drawable/button_custom"
-            android:layout_width="wrap_content"
+            android:textColor="@color/btnInner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnLogIn"
             android:text="로그인"/>
 
         <Button
             style="@style/btnBasic"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/btnInner"
             android:background="@drawable/button_custom"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnSignIn"
             android:text="회원가입"/>

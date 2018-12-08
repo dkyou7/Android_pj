@@ -26,7 +26,7 @@
         <item name="android:fontFamily">sans-serif-thick</item>
         <item name="android:backgroundTint">#ffffff</item>
         <item name="android:shape">rectangle</item>
-        <item name="android:radius">20dp</item>
+        <item name="android:radius">100dp</item>
         <item name="android:layout_margin">2dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
