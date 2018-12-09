@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,10 +63,6 @@ public class MailboxActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup v = (ViewGroup)inflater.inflate(R.layout.activity_mailbox,container,false);
 
-//        intent = getActivity().getIntent();
-//        cur_ID = intent.getStringExtra("myId");
-//        cur_SEX = intent.getStringExtra("SEX");
-//        cur_MODE = intent.getStringExtra("MODE");
         cur_ID = getArguments().getString("myId");
         cur_SEX = getArguments().getString("SEX");
         cur_MODE = getArguments().getString("MODE");
@@ -103,9 +100,10 @@ public class MailboxActivity extends Fragment {
 
                                     answer_query = true;
                                     getData("http://" + IP + "/mp/answer.php?ASK_ID=" + ask_id + "&ACK_ID=" + ack_id + "&MESSAGE=" + msg + "&ANSWER=" + answer + "&DT=" + date);
+                                    Log.d("query",answer_query+"");
                                     if(!answer_query)
                                     {
-                                        Toast.makeText(getContext(), answer_result, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), answer_result, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -121,7 +119,7 @@ public class MailboxActivity extends Fragment {
                                     getData("http://" + IP + "/mp/answer.php?ASK_ID=" + ask_id + "&ACK_ID=" + ack_id + "&MESSAGE=" + msg + "&ANSWER=" + answer + "&DT=" + date);
                                     if(!answer_query)
                                     {
-                                        Toast.makeText(getContext(), answer_result, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), answer_result, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

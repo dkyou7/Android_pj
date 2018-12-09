@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,8 +35,12 @@ public class SignInActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
 
     private EditText id, pw, name;
-    String ID, PW, NAME, SEX = null;
-
+    String ID = null;
+    String PW = null;
+    String NAME = null;
+    String SEX = null;
+    boolean IdCheck = false;
+    boolean IdOk = false;
     String myJSON;
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "ID";
@@ -56,13 +61,16 @@ public class SignInActivity extends AppCompatActivity {
         radioButton2 = (RadioButton)findViewById(R.id.radioB2);
 
         btnDbChk = (Button)findViewById(R.id.btnDoubleCheck);
+        btnDbChk = (Button)findViewById(R.id.btnDoubleCheck);
         btnDbChk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO : 여기에 중복확인 서버 통신 하기
+                ID = id.getText().toString();
+                Log.d("Dbchk", ID);
+                IdCheck = true;
+                getData("http://" + IP + "/mp/IdCheck.php?ID=" + ID); //수정 필요
             }
         });
-
         back = (Button)findViewById(R.id.btnBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,9 +95,13 @@ public class SignInActivity extends AppCompatActivity {
                 PW = pw.getText().toString();
                 NAME = name.getText().toString();
 
-                if(ID.equals("") || ID.equals(null) || PW.equals("") || PW.equals(null) || NAME.equals("") || NAME.equals(null) || SEX.equals("") || SEX.equals(null))
+                if(ID.equals("") || ID == null || PW.equals("") || PW == null || NAME.equals("") || NAME == null || SEX.equals("") || SEX == null)
                 {
                     Toast.makeText(getApplicationContext(), "정보를 입력하세요", Toast.LENGTH_SHORT).show();
+                }
+                else if(!IdOk)
+                {
+                    Toast.makeText(getApplicationContext(), "ID 중복 확인을 해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -124,19 +136,38 @@ public class SignInActivity extends AppCompatActivity {
                 JSONObject c = peoples.getJSONObject(i);
                 String dbid = c.getString(TAG_ID);
 
-                //json 돌면서 중복된 아이디 있나 확인
-                for(int j=0;j<peoples.length();j++){
-
-                }
-
-                if(dbid.equals("true"))
+                if(!IdCheck)
                 {
-                    Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT).show();
-                    finish();
+                    if (dbid.equals("true"))
+                    {
+                        Toast.makeText(getApplicationContext(), "회원가입 성공", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_SHORT).show();
+                    if(dbid != null)
+                    {
+                        if(!dbid.equals("")) {
+                            Toast.makeText(getApplicationContext(), "중복된 ID가 있습니다.", Toast.LENGTH_SHORT).show();
+                            IdOk = false;
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
+                            IdOk = true;
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "사용 가능한 ID 입니다.", Toast.LENGTH_SHORT).show();
+                        IdOk = true;
+                    }
+                    IdCheck = false;
                 }
             }
         } catch (JSONException e) {

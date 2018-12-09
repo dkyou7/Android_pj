@@ -1,5 +1,7 @@
 package com.example.dbconnection.Fragment;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -10,8 +12,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.example.dbconnection.MyInformation;
+import com.example.dbconnection.MyService;
 import com.example.dbconnection.R;
 
 public class Station extends AppCompatActivity {
@@ -90,7 +94,6 @@ public class Station extends AppCompatActivity {
         });
     }
 
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(event.getAction() == KeyEvent.ACTION_DOWN){
             if(keyCode == KeyEvent.KEYCODE_BACK){
@@ -103,12 +106,12 @@ public class Station extends AppCompatActivity {
     private void logOutQuestion(){
         boolean tmpQ = false;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("로그아웃");
-        builder.setMessage("로그아웃 하시겠습니까?");
+        builder.setTitle("종료");
+        builder.setMessage("종료하시겠습니까?");
         builder.setPositiveButton("네",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        alarmshow();
                     }
                 });
         builder.setNegativeButton("아니오",
@@ -119,4 +122,64 @@ public class Station extends AppCompatActivity {
                 });
         builder.show();
     }
+
+    public void alarmshow()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("쪽지 알람 설정");
+        builder.setMessage("쪽지 알람 수신 여부를 선택합니다.");
+        builder.setPositiveButton("수신",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplication(), "쪽지 알람 수신을 받습니다.", Toast.LENGTH_SHORT).show();
+                        if(!isServiceRunningCheck())
+                        {
+                            Intent intent_service_start = new Intent(getApplicationContext(), MyService.class);
+                            intent_service_start.putExtra("thID", cur_ID);
+                            startService(intent_service_start.setFlags(intent_service_start.FLAG_ACTIVITY_CLEAR_TOP | intent_service_start.FLAG_ACTIVITY_SINGLE_TOP));
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        finishAffinity();
+                        finish();
+                    }
+                });
+        builder.setNegativeButton("거부",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplication(),"쪽지 알람 수신을 중지합니다.",Toast.LENGTH_LONG).show();
+
+                        if(isServiceRunningCheck())
+                        {
+                            Intent intent_service_start = new Intent(getApplicationContext(), MyService.class);
+                            intent_service_start.putExtra("thID", cur_ID);
+                            stopService(intent_service_start.setFlags(intent_service_start.FLAG_ACTIVITY_CLEAR_TOP | intent_service_start.FLAG_ACTIVITY_SINGLE_TOP));
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        finishAffinity();
+                        finish();
+                    }
+                });
+        builder.show();
+    }
+
+    public boolean isServiceRunningCheck() {
+        ActivityManager manager = (ActivityManager) this.getSystemService(Activity.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("com.example.dbconnection.MyService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

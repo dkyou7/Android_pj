@@ -78,7 +78,6 @@ public class FinalMessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getData("http://" + IP + "/mp/Match.php?ASK_ID=" + myId + "&ACK_ID=" + partnerId + "&MESSAGE=" + message + "&DT=" + date + " " + time); //수정 필요
-                Toast.makeText(getApplicationContext(),"제출 완료되었습니다.",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(),RandomMatchActivity.class);
                 intent.setAction("FINAL");
                 intent.putExtra("ID", myId);
