@@ -28,8 +28,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class PackageDetailsActivity extends AppCompatActivity {
-    private String IP = "61.255.8.214:27922";
-
+    private String IP = "192.168.10.150";
     Button cafeButton, mealButton, movieButton, pubButton, nextButton,btnBack;
     TextView cafeSelection, mealSelection, movieSelection, pubSelction;
     int increment;

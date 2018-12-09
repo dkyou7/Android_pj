@@ -21,8 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MailboxAdapter extends BaseAdapter {
-    private String IP = "61.255.8.214:27922";
-
+    private String IP = "192.168.10.150";
     private Context ctx;
     private ArrayList<MailboxMessage> data;
     private Bitmap bmImg;

@@ -25,11 +25,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
-    private String IP = "61.255.8.214:27922";
-
+    private String IP = "192.168.10.150";
     private Button back;
     private Button signIn;
     private Button regis_pic;
+    private Button btnDbChk;
     private RadioButton radioButton1, radioButton2;
     private RadioGroup radioGroup;
 
@@ -54,6 +54,14 @@ public class SignInActivity extends AppCompatActivity {
         radioGroup = (RadioGroup)findViewById(R.id.radioG1);
         radioButton1 = (RadioButton)findViewById(R.id.radioB1);
         radioButton2 = (RadioButton)findViewById(R.id.radioB2);
+
+        btnDbChk = (Button)findViewById(R.id.btnDoubleCheck);
+        btnDbChk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO : 여기에 중복확인 서버 통신 하기
+            }
+        });
 
         back = (Button)findViewById(R.id.btnBack);
         back.setOnClickListener(new View.OnClickListener() {

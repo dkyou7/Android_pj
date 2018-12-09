@@ -1,4 +1,4 @@
-package com.example.dbconnection.Activity;
+package com.example.dbconnection.Fragment;
 
 
 
@@ -6,10 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.app.AlertDialog;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,9 +35,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MailboxActivity extends AppCompatActivity {
+public class MailboxActivity extends Fragment {
 
-    private String IP = "61.255.8.214:27922";
+    private String IP = "192.168.10.150";
     ListView messages;
     MailboxAdapter mailboxAdapter;
     TextView textView;
@@ -48,23 +52,27 @@ public class MailboxActivity extends AppCompatActivity {
     private static final String TAG_ANS = "ANSWER";
     JSONArray peoples = null;
 
-    final ArrayList<MailboxMessage> adapter = new ArrayList<>();
+    ArrayList<MailboxMessage> adapter;
     private MailboxMessage selected;
     boolean answer_query;
     String date, answer_result;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mailbox);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ViewGroup v = (ViewGroup)inflater.inflate(R.layout.activity_mailbox,container,false);
 
-        intent = getIntent();
-        cur_ID = intent.getStringExtra("myId");
-        cur_SEX = intent.getStringExtra("SEX");
-        cur_MODE = intent.getStringExtra("MODE");
+//        intent = getActivity().getIntent();
+//        cur_ID = intent.getStringExtra("myId");
+//        cur_SEX = intent.getStringExtra("SEX");
+//        cur_MODE = intent.getStringExtra("MODE");
+        cur_ID = getArguments().getString("myId");
+        cur_SEX = getArguments().getString("SEX");
+        cur_MODE = getArguments().getString("MODE");
 
-        messages = (ListView)findViewById(R.id.messages);
-        textView = (TextView)findViewById(R.id.Title);
+        messages = (ListView)v.findViewById(R.id.messages);
+        textView = (TextView)v.findViewById(R.id.Title);
+        adapter = new ArrayList<>();
 
         long NOW = System.currentTimeMillis();
         SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -81,7 +89,7 @@ public class MailboxActivity extends AppCompatActivity {
             messages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MailboxActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("메세지");
                     builder.setMessage("당신을 맘에 들어합니다.");
                     selected = (MailboxMessage)(adapterView.getAdapter().getItem(i));
@@ -97,7 +105,7 @@ public class MailboxActivity extends AppCompatActivity {
                                     getData("http://" + IP + "/mp/answer.php?ASK_ID=" + ask_id + "&ACK_ID=" + ack_id + "&MESSAGE=" + msg + "&ANSWER=" + answer + "&DT=" + date);
                                     if(!answer_query)
                                     {
-                                        Toast.makeText(getApplicationContext(), answer_result, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), answer_result, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -113,7 +121,7 @@ public class MailboxActivity extends AppCompatActivity {
                                     getData("http://" + IP + "/mp/answer.php?ASK_ID=" + ask_id + "&ACK_ID=" + ack_id + "&MESSAGE=" + msg + "&ANSWER=" + answer + "&DT=" + date);
                                     if(!answer_query)
                                     {
-                                        Toast.makeText(getApplication(), answer_result, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), answer_result, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -131,6 +139,7 @@ public class MailboxActivity extends AppCompatActivity {
             textView.setText("SCHEDULE");
             getData("http://" + IP + "/mp/schedule.php?ID=" + cur_ID + "&NOW=" + date);
         }
+        return v;
     }
 
     protected void showList()
@@ -171,7 +180,7 @@ public class MailboxActivity extends AppCompatActivity {
                 }
                 adapter.add(mm);
             }
-            mailboxAdapter = new MailboxAdapter(getApplication(),adapter);
+            mailboxAdapter = new MailboxAdapter(getContext(),adapter);
             messages.setAdapter(mailboxAdapter);
         } catch (JSONException e) {
             e.printStackTrace();

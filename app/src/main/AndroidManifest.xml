@@ -24,12 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.MailboxActivity"
+            android:name=".Fragment.MailboxActivity"
             android:theme="@style/Theme.AppCompat" />
         <activity android:name=".Activity.PackageDetailsActivity" />
         <activity android:name=".Activity.PackageSelectActivity" />
         <activity android:name=".Activity.RandomImageActivity" />
-        <activity android:name=".RandomMatchActivity" />
+        <activity android:name=".Fragment.RandomMatchActivity" />
         <activity android:name=".Activity.SignInActivity" />
 
         <service
@@ -38,9 +38,9 @@
             android:exported="true" />
 
         <activity android:name=".MyInformation" />
-        <activity android:name=".Station" />
-        <activity android:name=".YesOrNo" />
-        <activity android:name=".ScheduleManagement"></activity>
+        <activity android:name=".Fragment.Station" />
+        <activity android:name=".Fragment.YesOrNo" />
+        <activity android:name=".Fragment.ScheduleManagement"></activity>
     </application>
 
 </manifest>

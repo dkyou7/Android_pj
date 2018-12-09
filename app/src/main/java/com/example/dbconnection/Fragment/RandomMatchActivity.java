@@ -1,4 +1,4 @@
-package com.example.dbconnection;
+package com.example.dbconnection.Fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,20 +7,21 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbconnection.Activity.MailboxActivity;
 import com.example.dbconnection.Activity.PackageSelectActivity;
-import com.example.dbconnection.MyInformation;
 import com.example.dbconnection.R;
 
 import org.json.JSONArray;
@@ -35,12 +36,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RandomMatchActivity extends AppCompatActivity {
-    private String IP = "61.255.8.214:27922";
-
+public class RandomMatchActivity extends Fragment {
+    private String IP = "192.168.10.150";
     private ImageView userPortrait;
     private TextView userName;
-    private Button selectButton, passButton,btnMailbox, btnRecord, btnDate, btnMyInfo;
+    private Button selectButton, passButton, btnMailbox, btnRecord, btnDate, btnMyInfo;
     private String cur_ID, cur_SEX;
     private ArrayList<String> partner_ID;
 
@@ -54,97 +54,100 @@ public class RandomMatchActivity extends AppCompatActivity {
     Bitmap bmImg;
     private int partner_num;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_random_match);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ViewGroup v = (ViewGroup) inflater.inflate(R.layout.activity_random_match, container, false);
 
         partner_num = 0;
         partner_ID = new ArrayList<String>();
 
-        final Intent get = getIntent();
+        final Intent get = getActivity().getIntent();
         cur_ID = get.getStringExtra("ID");
         cur_SEX = get.getStringExtra("SEX");
+        Log.d("test",cur_ID + ":: " + cur_SEX);
 
-        userPortrait = (ImageView)findViewById(R.id.user_portrait);
-        userName = (TextView)findViewById(R.id.user_name);
-        selectButton = (Button)findViewById(R.id.pick_button);
-        passButton = (Button)findViewById(R.id.pass_button);
-        btnMailbox = (Button)findViewById(R.id.btnMailbox);
-        btnRecord = (Button)findViewById(R.id.btnRecord);
-        btnDate = (Button)findViewById(R.id.btnDate);
-        btnMyInfo = (Button)findViewById(R.id.btnMyInfo);
+        userPortrait = (ImageView) v.findViewById(R.id.user_portrait);
+        userName = (TextView) v.findViewById(R.id.user_name);
+        selectButton = (Button) v.findViewById(R.id.pick_button);
+        passButton = (Button) v.findViewById(R.id.pass_button);
+//        btnMailbox = (Button) v.findViewById(R.id.btnMailbox);
+//        btnRecord = (Button) v.findViewById(R.id.btnRecord);
+//        btnDate = (Button) v.findViewById(R.id.btnDate);
+//        btnMyInfo = (Button) v.findViewById(R.id.btnMyInfo);
 
         getData("http://" + IP + "/mp/Search.php?SEX=" + cur_SEX);
 
-        btnMailbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
-                intent.putExtra("myId", cur_ID);
-                intent.putExtra("SEX", cur_SEX);
-                intent.putExtra("MODE", "mail");
-                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
-            }
-        });
+//        btnMailbox.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), MailboxActivity.class);
+//                intent.putExtra("myId", cur_ID);
+//                intent.putExtra("SEX", cur_SEX);
+//                intent.putExtra("MODE", "mail");
+//                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+//            }
+//        });
+//
+//        btnRecord.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), MailboxActivity.class);
+//                intent.putExtra("myId", cur_ID);
+//                intent.putExtra("SEX", cur_SEX);
+//                intent.putExtra("MODE", "record");
+//                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+//            }
+//        });
+//
+//        btnDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), MailboxActivity.class);
+//                intent.putExtra("myId", cur_ID);
+//                intent.putExtra("SEX", cur_SEX);
+//                intent.putExtra("MODE", "schedule");
+//                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+//            }
+//        });
+//
+//        btnMyInfo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), MyInformation.class);
+//                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+//            }
+//        });
 
-        btnRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
-                intent.putExtra("myId", cur_ID);
-                intent.putExtra("SEX", cur_SEX);
-                intent.putExtra("MODE", "record");
-                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
-            }
-        });
-
-        btnDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MailboxActivity.class);
-                intent.putExtra("myId", cur_ID);
-                intent.putExtra("SEX", cur_SEX);
-                intent.putExtra("MODE", "schedule");
-                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
-            }
-        });
-
-        btnMyInfo.setOnClickListener(new View.OnClickListener() {
+        selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MyInformation.class);
-                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | intent.FLAG_ACTIVITY_SINGLE_TOP));
+                show();
             }
         });
-    }
-
-    public void mOnClick(View v)
-    {
-        switch (v.getId())
-        {
-            case R.id.pick_button:
-                show();
-                break;
-            case R.id.pass_button:
+        passButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 int random = (int)(Math.random()*partner_num);
                 partner_idx = random;
 
                 back change = new back();
                 change.execute("http://" + IP + "/mp/image/" + partner_ID.get(random) + ".jpg");
-        }
+            }
+        });
+    return v;
     }
 
     void show()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("데이트 명세 시작");
         builder.setMessage("1. 데이트 날짜를 정하세요!\n2. 데이트 장소를 정하세요!\n3. 보내기~! 및 기다리기");
         builder.setPositiveButton("시작하자",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), partner_ID.get(partner_idx), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(),PackageSelectActivity.class);
+                        Toast.makeText(getContext(), partner_ID.get(partner_idx), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(),PackageSelectActivity.class);
                         intent.putExtra("myId",cur_ID);
                         Log.d("ptest", "중단점1"+partner_ID.get(partner_idx));
 
@@ -156,7 +159,7 @@ public class RandomMatchActivity extends AppCompatActivity {
         builder.setNegativeButton("다시생각해볼게요",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"아니오를 선택했습니다.",Toast.LENGTH_LONG).show();
                     }
                 });
         builder.show();
@@ -213,6 +216,7 @@ public class RandomMatchActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String result) {
+                Log.d("debugging","1 : " + result);
                 myJSON = result;
                 showList();
             }
@@ -262,33 +266,4 @@ public class RandomMatchActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(event.getAction() == KeyEvent.ACTION_DOWN){
-            if(keyCode == KeyEvent.KEYCODE_BACK){
-                logOutQuestion();
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void logOutQuestion(){
-        boolean tmpQ = false;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("로그아웃");
-        builder.setMessage("로그아웃 하시겠습니까?");
-        builder.setPositiveButton("네",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-        builder.setNegativeButton("아니오",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-        builder.show();
-    }
 }

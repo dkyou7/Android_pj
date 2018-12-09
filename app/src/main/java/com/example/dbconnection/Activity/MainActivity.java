@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.dbconnection.RandomMatchActivity;
 import com.example.dbconnection.MyService;
 import com.example.dbconnection.R;
+import com.example.dbconnection.Fragment.Station;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends Activity {
-        private String IP = "61.255.8.214:27922";
+        private String IP = "192.168.10.150";
         String myJSON;
 
 
@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
                     String dbpd = c.getString(TAG_PD);
                     String dbsex = c.getString(TAG_SEX);
                     if(id.equals(dbid) && pd.equals(dbpd)) {
-                        Intent intent = new Intent(getApplicationContext(), RandomMatchActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), Station.class);
                         intent.putExtra("ID", id);
                         intent.putExtra("SEX", dbsex);
                         intent.setAction("MAIN");

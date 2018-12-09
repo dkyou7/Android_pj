@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbconnection.RandomMatchActivity;
+import com.example.dbconnection.Fragment.RandomMatchActivity;
 import com.example.dbconnection.R;
 
 import org.json.JSONArray;
@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class FinalMessageActivity extends AppCompatActivity {
 
-    private String IP = "61.255.8.214:27922";
+    private String IP = "192.168.10.150";
     String myJSON;
     JSONArray peoples = null;
 
