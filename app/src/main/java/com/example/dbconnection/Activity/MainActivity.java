@@ -8,8 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.dbconnection.Activity.RandomMatchActivity;
-import com.example.dbconnection.Activity.SignInActivity;
+import com.example.dbconnection.RandomMatchActivity;
 import com.example.dbconnection.MyService;
 import com.example.dbconnection.R;
 
@@ -84,9 +83,8 @@ public class MainActivity extends Activity {
                     String dbid = c.getString(TAG_ID);
                     String dbpd = c.getString(TAG_PD);
                     String dbsex = c.getString(TAG_SEX);
-                    if(id.equals(dbid) && pd.equals(dbpd))
-                    {
-                        Intent intent = new Intent(getApplicationContext(),RandomMatchActivity.class);
+                    if(id.equals(dbid) && pd.equals(dbpd)) {
+                        Intent intent = new Intent(getApplicationContext(), RandomMatchActivity.class);
                         intent.putExtra("ID", id);
                         intent.putExtra("SEX", dbsex);
                         intent.setAction("MAIN");

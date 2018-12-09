@@ -39,6 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     String myJSON;
     private static final String TAG_RESULTS = "result";
     private static final String TAG_ID = "ID";
+
     JSONArray peoples = null;
 
     @Override
@@ -114,6 +115,11 @@ public class SignInActivity extends AppCompatActivity {
             {
                 JSONObject c = peoples.getJSONObject(i);
                 String dbid = c.getString(TAG_ID);
+
+                //json 돌면서 중복된 아이디 있나 확인
+                for(int j=0;j<peoples.length();j++){
+
+                }
 
                 if(dbid.equals("true"))
                 {

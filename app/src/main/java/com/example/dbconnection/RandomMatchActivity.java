@@ -1,4 +1,4 @@
-package com.example.dbconnection.Activity;
+package com.example.dbconnection;
 
 import android.content.DialogInterface;
 import android.content.Intent;

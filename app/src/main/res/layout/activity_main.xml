@@ -9,6 +9,11 @@
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity">
 
+    <ImageView
+        android:src="@drawable/title"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -24,6 +29,8 @@
             android:id="@+id/user_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:singleLine="true"
             android:hint="input id"
@@ -45,7 +52,9 @@
         <EditText
             style="@style/editTextBasic"
             android:id="@+id/user_PD"
+            android:cursorVisible="false"
             android:layout_width="wrap_content"
+            android:backgroundTint="@color/white"
             android:layout_height="wrap_content"
             android:ems="10"
             android:singleLine="true"

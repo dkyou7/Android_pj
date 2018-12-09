@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dbconnection.Activity.RandomMatchActivity;
+import com.example.dbconnection.RandomMatchActivity;
 import com.example.dbconnection.R;
 
 import org.json.JSONArray;
